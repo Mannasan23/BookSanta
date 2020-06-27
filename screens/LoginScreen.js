@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet, TextInput, Image, Alert} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet, TextInput, Image, Alert, Modal, ScrollView, KeyboardAvoidingView} from 'react-native';
 import db from '../Config';
 import firebase from 'firebase';
 
@@ -8,8 +8,64 @@ export default class LoginScreen extends React.Component {
         super();
         this.state = {
           emailId: '',
-          password: ''
+          password: '',
+          confirmPassword: '',
+          firstName: '',
+          lastName: '',
+          address: '',
+          contact: '',
+          isModalVisible: false     
         }
+    }
+
+    showModal = ()=> {
+      return(
+        <Modal animation= "fade" transparent = {true} visible= {this.state.isModalVisible}>
+          <View style= {styles.modalContainer}>
+            <ScrollView style= {{width: '100%'}}>
+              <KeyboardAvoidingView style= {styles.KeyboardAvoidingView}>
+                <Text style= {styles.modalTitle}>Registration</Text>
+                <TextInput style= {styles.formTextInput} placeholder= "First Name" maxLength= {10}
+                  onChangeText= {(text)=> this.setState({firstName: text})}>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "Last Name" maxLength= {10}
+                  onChangeText= {(text)=> this.setState({lastName: text})}>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "Contact" maxLength= {10} keyboardType= 'numeric'
+                  onChangeText= {(text)=> this.setState({contact: text})}>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "Address" multiline= {true}
+                  onChangeText= {(text)=> this.setState({address: text})}>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "abc@example.com" 
+                  onChangeText= {(text)=> this.setState({emailId: text})} keyboardType = 'email-address'>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "enter password" 
+                  onChangeText= {(text)=> this.setState({password: text})} secureTextEntry = {true}>
+                </TextInput>
+                <TextInput style= {styles.formTextInput} placeholder= "Confirm Password" 
+                  onChangeText= {(text)=> this.setState({confirmPassword: text})} secureTextEntry = {true}>
+                </TextInput>
+                <View>
+                  <TouchableOpacity style= {styles.registerButton} onPress = {()=>{
+                    this.userSignUp(this.state.emailId, this.state.password, this.state.confirmPassword)}
+                  }>
+                    <Text style= {styles.registerButtonText}>Register</Text>
+                  </TouchableOpacity>
+                </View>
+                 <View>
+                  <TouchableOpacity style= {styles.cancelButton} onPress = {()=>{
+                    this.setState({isModalVisible: false})
+                  }
+                  }>
+                    <Text style= {{color: '#FF5722'}}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </KeyboardAvoidingView>
+            </ScrollView>
+          </View>
+        </Modal>
+      )
     }
 
     userLogin = (emailId, password)=> {
@@ -26,23 +82,40 @@ export default class LoginScreen extends React.Component {
       })
     }
 
-    userSignUp = (emailId, password)=> {
-      firebase.auth().createUserWithEmailAndPassword(emailId, password).then(()=>{
+    userSignUp = (emailId, password, confirmPassword)=> {
+      if(password != confirmPassword){
         return(
-          Alert.alert("User added successfully")
+          Alert.alert("Entered Password does not match\n Check your password")
         )
-      })
-      .catch((error)=>{
-        var errorMessage = error.message;
-        return(
-          Alert.alert(errorMessage)
-        )
-      })
+      }
+      else{
+        firebase.auth().createUserWithEmailAndPassword(emailId, password).then(()=>{
+          db.collection('users').add({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            contact: this.state.contact,
+            emailId: this.state.emailId,
+            address: this.state.address
+          })
+          return(
+            Alert.alert("User added successfully")
+          )
+        })
+        .catch((error)=>{
+          var errorMessage = error.message;
+          return(
+            Alert.alert(errorMessage)
+          )
+        })
+      }
     }
 
     render(){
       return(
         <View style= {styles.container}>
+          {
+            this.showModal()
+          }
           <View style= {styles.profileContainer}>
             <Image source= {require("../assets/santa.jpg")} style= {{width: 200, height: 200}}></Image>
             <Text style= {styles.title}>Book Santa</Text>
@@ -60,7 +133,7 @@ export default class LoginScreen extends React.Component {
               <Text style= {styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style= {styles.button} onPress = {()=>{
-              this.userSignUp(this.state.emailId, this.state.password)}
+              this.setState({isModalVisible: true}) }
               }>
               <Text style= {styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
@@ -71,52 +144,110 @@ export default class LoginScreen extends React.Component {
 }
 const styles = StyleSheet.create({
     container:{
-      flex:1,
-      backgroundColor:'#F8BE85'
-    },
-    profileContainer:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    title :{
-      fontSize:65,
-      fontWeight:'300',
-      paddingBottom:30,
-      color : '#ff3d00'
-    },
-    loginBox:{
-      width: 300,
-      height: 40,
-      borderBottomWidth: 1.5,
-      borderColor : '#ff8a65',
-      fontSize: 20,
-      margin:10,
-      paddingLeft:10
-    },
-    button:{
-      width:300,
-      height:50,
-      justifyContent:'center',
-      alignItems:'center',
-      borderRadius:25,
-      backgroundColor:"#ff9800",
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 8,
-      },
-      shadowOpacity: 0.30,
-      shadowRadius: 10.32,
-      elevation: 16,
-    },
-    buttonText:{
-      color:'#ffff',
-      fontWeight:'200',
-      fontSize:20
-    },
-    buttonContainer:{
-      flex:1,
-      alignItems:'center'
-    }
+   flex:1,
+   backgroundColor:'#F8BE85',
+   alignItems: 'center',
+   justifyContent: 'center'
+ },
+ profileContainer:{
+   flex:1,
+   justifyContent:'center',
+   alignItems:'center',
+ },
+ title :{
+   fontSize:65,
+   fontWeight:'300',
+   paddingBottom:30,
+   color : '#ff3d00'
+ },
+ loginBox:{
+   width: 300,
+   height: 40,
+   borderBottomWidth: 1.5,
+   borderColor : '#ff8a65',
+   fontSize: 20,
+   margin:10,
+   paddingLeft:10
+ },
+ KeyboardAvoidingView:{
+   flex:1,
+   justifyContent:'center',
+   alignItems:'center'
+ },
+ modalTitle :{
+   justifyContent:'center',
+   alignSelf:'center',
+   fontSize:30,
+   color:'#ff5722',
+   margin:50
+ },
+ modalContainer:{
+   flex:1,
+   borderRadius:20,
+   justifyContent:'center',
+   alignItems:'center',
+   backgroundColor:"#ffff",
+   marginRight:30,
+   marginLeft : 30,
+   marginTop:80,
+   marginBottom:80,
+ },
+ formTextInput:{
+   width:"75%",
+   height:35,
+   alignSelf:'center',
+   borderColor:'#ffab91',
+   borderRadius:10,
+   borderWidth:1,
+   marginTop:20,
+   padding:10
+ },
+ registerButton:{
+   width:200,
+   height:40,
+   alignItems:'center',
+   justifyContent:'center',
+   borderWidth:1,
+   borderRadius:10,
+   marginTop:30
+ },
+ registerButtonText:{
+   color:'#ff5722',
+   fontSize:15,
+   fontWeight:'bold'
+ },
+ cancelButton:{
+   width:200,
+   height:30,
+   justifyContent:'center',
+   alignItems:'center',
+   marginTop:5,
+ },
+
+ button:{
+   width:300,
+   height:50,
+   justifyContent:'center',
+   alignItems:'center',
+   borderRadius:25,
+   backgroundColor:"#ff9800",
+   shadowColor: "#000",
+   shadowOffset: {
+      width: 0,
+      height: 8,
+   },
+   shadowOpacity: 0.30,
+   shadowRadius: 10.32,
+   elevation: 16,
+   padding: 10
+ },
+ buttonText:{
+   color:'#ffff',
+   fontWeight:'200',
+   fontSize:20
+ },   
+  buttonContainer:{
+    flex:1,
+    alignItems:'center'
+  }
   })
