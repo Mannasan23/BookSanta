@@ -9,7 +9,7 @@ import {
   Alert} from 'react-native';
 import db from '../Config';
 import firebase from 'firebase';
-import MyHeader from '../components/MyHeader'
+import MyHeader from '../components/MyHeader';
 
 export default class BookRequestScreen extends Component{
   constructor(){

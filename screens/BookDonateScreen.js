@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, FlatList,TouchableOpacity } from 'react-native';
-import { ListItem } from 'react-native-elements'
+import { ListItem } from 'react-native-elements';
 import firebase from 'firebase';
-import db from '../Config'
+import db from '../Config';
 import MyHeader from '../components/MyHeader';
 
 export default class BookDonateScreen extends Component{
@@ -32,7 +32,7 @@ export default class BookDonateScreen extends Component{
     this.requestRef();
   }
 
-  keyExtractor = (item, index) => index.toString()
+  keyExtractor = (item, index) => {index.toString()}
 
   renderItem = ( {item, i} ) =>{
     return (
