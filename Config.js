@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-require("@firebase/firestore");
+require("@firebase/firestore")
 var firebaseConfig = {
     apiKey: "AIzaSyDTHxyteJPvPQj1Id2MHaKXfzk7BYho1JA",
     authDomain: "book-santa-bbfeb.firebaseapp.com",

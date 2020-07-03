@@ -1,7 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {AppTabNavigator} from './AppTabNavigator';
-import CustomSideBar from './CustomSlideBar';
+import CustomSideBarMenu from './CustomSlideBar';
 
 export const AppDrawerNavigator = createDrawerNavigator({
   Home : {
@@ -9,7 +9,7 @@ export const AppDrawerNavigator = createDrawerNavigator({
     },
   },
   {
-    contentComponent:CustomSideBar
+    contentComponent:CustomSideBarMenu
   },
   {
     initialRouteName : 'Home'
