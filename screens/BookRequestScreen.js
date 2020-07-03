@@ -10,6 +10,15 @@ import {
 import db from '../Config';
 import firebase from 'firebase';
 import MyHeader from '../components/MyHeader';
+import {encode,decode} from "base-64"
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
 
 export default class BookRequestScreen extends Component{
   constructor(){

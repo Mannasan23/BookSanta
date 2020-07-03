@@ -1,8 +1,7 @@
 import React from 'react';
 import LoginScreen from './screens/LoginScreen';
-import {AppTabNavigator} from './components/AppTabNavigator';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import {AppDrawerNavigator} from './components/AppDrawerNavigator';
 
 export default function App() {
   return (
@@ -11,8 +10,8 @@ export default function App() {
 }
 
 const SwitchNavigator = createSwitchNavigator({
-  LoginScreen: {screens: LoginScreen},
-  BottomTab: {screens: AppTabNavigator}
+  LoginScreen: {screen: LoginScreen},
+  Drawer: {screen: AppDrawerNavigator}
 })
 
 const AppContainer = createAppContainer(SwitchNavigator)
