@@ -45,7 +45,7 @@ export default class SettingScreen extends Component{
   }
 
   updateUserDetails=()=>{
-    db.collection('users').doc(this.state.emailId)
+    db.collection('users').doc(this.state.docId)
     .update({
       "first_name": this.state.firstName,
       "last_name" : this.state.lastName,

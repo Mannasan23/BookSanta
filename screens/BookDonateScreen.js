@@ -4,7 +4,7 @@ import { ListItem } from 'react-native-elements';
 import firebase from 'firebase';
 import db from '../Config';
 import MyHeader from '../components/MyHeader';
-import {encode,decode} from "base-64"
+import {encode,decode} from "base-64";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -51,7 +51,11 @@ export default class BookDonateScreen extends Component{
         subtitle={item.reason_to_request}
         titleStyle={{ color: 'black', fontWeight: 'bold' }}
         rightElement={
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={
+              ()=> {
+                this.props.navigation.navigate("ReceiverDetails", {"details": item})
+              }
+            }>
               <Text style={{color:'#ffff'}}>View</Text>
             </TouchableOpacity>
           }
