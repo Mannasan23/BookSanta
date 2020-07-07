@@ -8,9 +8,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert} from 'react-native';
-import MyHeader from '../components/MyHeader'
-import db from '../Config'
-import firebase from 'firebase'
+import MyHeader from '../components/MyHeader';
+import db from '../Config';
+import firebase from 'firebase';
 
 export default class SettingScreen extends Component{
   constructor(){
