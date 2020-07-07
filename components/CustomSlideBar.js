@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import {StyleSheet, View, Text,TouchableOpacity} from 'react-native';
-import { DrawerItems} from 'react-navigation-drawer'
+import { DrawerItems} from 'react-navigation-drawer';
 
 import firebase from 'firebase';
 

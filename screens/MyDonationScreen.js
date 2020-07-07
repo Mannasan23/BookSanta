@@ -1,9 +1,9 @@
-import React ,{Component} from 'react'
+import React ,{Component} from 'react';
 import {View, Text,TouchableOpacity,ScrollView,FlatList,StyleSheet} from 'react-native';
-import {Card,Icon,ListItem} from 'react-native-elements'
-import MyHeader from '../components/MyHeader.js'
+import {Card,Icon,ListItem} from 'react-native-elements';
+import MyHeader from '../components/MyHeader.js';
 import firebase from 'firebase';
-import db from '../Config.js'
+import db from '../Config.js';
 
 export default class MyDonationScreen extends Component {
   static navigationOptions = { header: null };
