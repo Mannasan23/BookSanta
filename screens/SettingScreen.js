@@ -31,6 +31,7 @@ export default class SettingScreen extends Component{
     .then(snapshot => {
       snapshot.forEach(doc => {
       var data = doc.data()
+      console.log(data)
         this.setState({
           emailId   : data.email_id,
           firstName : data.first_name,
