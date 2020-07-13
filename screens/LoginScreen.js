@@ -91,10 +91,10 @@ export default class LoginScreen extends React.Component {
       else{
         firebase.auth().createUserWithEmailAndPassword(emailId, password).then(()=>{
           db.collection('users').add({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
             contact: this.state.contact,
-            emailId: this.state.emailId,
+            email_id: this.state.emailId,
             address: this.state.address
           })
           return(
