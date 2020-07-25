@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  Platform,
-} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, Platform} from "react-native";
 import { DrawerItems } from "react-navigation-drawer";
 import { Avatar } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
