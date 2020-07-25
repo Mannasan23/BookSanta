@@ -54,7 +54,6 @@ export default class CustomSideBarMenu extends Component {
       .storage()
       .ref()
       .child("user_profiles/" + imageName);
-
     // Get the download URL
     storageRef
       .getDownloadURL()
