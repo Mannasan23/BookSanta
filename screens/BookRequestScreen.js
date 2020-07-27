@@ -246,24 +246,24 @@ export default class BookRequestScreen extends Component{
               />
                {  this.state.showFlatlist ?
 
-              (  <FlatList
+              (<FlatList
                 data={this.state.dataSource}
                 renderItem={this.renderItems}
                 enableEmptySections={true}
                 style={{ marginTop: 10 }}
                 keyExtractor={(item, index) => index.toString()}
-                /> )
+              />)
                 :(
-                <View style={{alignItems:'center'}}>
+              <View style={{alignItems:'center'}}>
                 <TextInput
                   style ={[styles.formTextInput,{height:300}]}
                   multiline
                   numberOfLines ={8}
                   placeholder={"Why do you need the book"}
                   onChangeText ={(text)=>{
-                      this.setState({
-                          reasonToRequest:text
-                      })
+                    this.setState({
+                      reasonToRequest:text
+                    })
                   }}
                   value ={this.state.reasonToRequest}
                 />
@@ -271,10 +271,10 @@ export default class BookRequestScreen extends Component{
                   style={styles.button}
                   onPress={()=>{ this.addRequest(this.state.bookName,this.state.reasonToRequest);
                   }}
-                  >
+                >
                   <Text>Request</Text>
                 </TouchableOpacity>
-                </View>
+              </View>
                 )
               }
             </KeyboardAvoidingView>
