@@ -259,7 +259,7 @@ export default class BookRequestScreen extends Component{
                   style ={[styles.formTextInput,{height:300}]}
                   multiline
                   numberOfLines ={8}
-                  placeholder={"Why do you need the book"}
+                  placeholder={"Why do you need the book?"}
                   onChangeText ={(text)=>{
                     this.setState({
                       reasonToRequest:text
