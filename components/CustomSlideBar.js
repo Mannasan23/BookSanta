@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import {StyleSheet, View, Text, TouchableOpacity, ImageBackground, Platform} from "react-native";
 import { DrawerItems } from "react-navigation-drawer";
-import { Avatar } from "react-native-elements";
+import { Avatar, Icon } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import firebase from "firebase";
 import db from "../Config";
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export default class CustomSideBarMenu extends Component {
   state = {
@@ -115,7 +116,15 @@ export default class CustomSideBarMenu extends Component {
               firebase.auth().signOut();
             }}
           >
-            <Text>Log Out</Text>
+            <View style= {{flexDirection: 'row'}}>
+              <Icon name = 'logout' type = 'antdesign' size= {RFValue(20)}
+              iconStyle = {{paddingLeft: RFValue(10)}}></Icon>
+              <Text style= {{
+                fontSize: RFValue(15), 
+                fontWeight: 'bold', 
+                marginLeft: RFValue(30)
+                }}>Log Out</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
